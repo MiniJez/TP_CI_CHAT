@@ -17,6 +17,7 @@ import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 /**
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
  */
 public class ChatServer<T> implements UserAlgo, ChatroomAlgo<T>, MessageAlgo<T>, AutoCloseable {
 
+    private static AtomicLong idCounter = new AtomicLong();
     /**
      * The model for the chat.
      */
@@ -173,6 +175,7 @@ public class ChatServer<T> implements UserAlgo, ChatroomAlgo<T>, MessageAlgo<T>,
      */
     @Override
     public Collection<UserInfo> getUsers() {
+        System.out.println(chatInstance.getUsers().keySet());
         return chatInstance.getUsers().keySet();
     }
 
@@ -182,7 +185,7 @@ public class ChatServer<T> implements UserAlgo, ChatroomAlgo<T>, MessageAlgo<T>,
     @Override
     public UserInfo login(String userName) {
         final UserInfo user = new UserInfo(
-                findUser(userName).orElse(new UserAccount(0, "test")),
+                findUser(userName).orElse(new UserAccount((int)idCounter.getAndIncrement(), userName)),
                 Status.ACTIVE // user just logged in - status is active
         );
         notifyUserChange(user);
@@ -197,18 +200,20 @@ public class ChatServer<T> implements UserAlgo, ChatroomAlgo<T>, MessageAlgo<T>,
      */
     public Optional<UserAccount> findUser(String userName) {
         // Test code
+        /*
         if (userName.equals("testUser")) {
             return Optional.of(new UserAccount(0, userName));
         } else {
             return Optional.empty();
         }
+        */
         // Real code
-        /*
+
         return chatInstance.getUsers().keySet().stream()
                 .map(UserInfo::getAccount)
                 .filter(account -> account.getUsername().equals(userName))
                 .findAny();
-        */
+
     }
 
     /**
@@ -265,7 +270,8 @@ public class ChatServer<T> implements UserAlgo, ChatroomAlgo<T>, MessageAlgo<T>,
      */
     @Override
     public Chatroom<T> getChatroom(int chatroomId) {
-        return chatInstance.getCurentChatrooms().get(0);
+        System.out.println(chatroomId);
+        return chatInstance.getCurentChatrooms().get(chatroomId);
     }
 
     /**
@@ -315,6 +321,7 @@ public class ChatServer<T> implements UserAlgo, ChatroomAlgo<T>, MessageAlgo<T>,
      */
     @Override
     public Message<T> addMessage(int chatroomId, UserInfo user, T content) {
+        System.out.println(user);
         Message<T> newMessage = getChatroom(chatroomId).addMessage(user, content);
 
         // return new created message

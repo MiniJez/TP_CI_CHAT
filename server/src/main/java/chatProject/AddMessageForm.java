@@ -13,6 +13,7 @@ public class AddMessageForm<T> {
     private final T content;
 
     public AddMessageForm(int chatroomId, UserInfo user, T content) {
+        System.out.println(user);
         this.chatroomId = chatroomId;
         this.user = user;
         this.content = content;

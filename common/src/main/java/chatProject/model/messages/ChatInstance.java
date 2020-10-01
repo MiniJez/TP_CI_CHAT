@@ -56,7 +56,6 @@ public class ChatInstance<T> {
      * @param newUser the user to add
      */
     public boolean addUser(UserInfo newUser) {
-        System.out.println(users);
         if (users.get(newUser) != null) {
             // already found in the model (same account and same status) - no update
             return false;

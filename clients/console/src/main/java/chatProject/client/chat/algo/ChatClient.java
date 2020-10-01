@@ -274,6 +274,7 @@ public class ChatClient<T> implements UserAlgo, ChatroomAlgo<T>, MessageAlgo<T>,
      * @param message the content of the message to send
      */
     public void sendMessageForCurrentUser(int chatroomId, T message) {
+        System.out.println(currentUser);
         addMessage(chatroomId, currentUser, message);
     }
 
