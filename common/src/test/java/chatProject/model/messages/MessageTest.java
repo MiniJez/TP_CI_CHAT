@@ -30,7 +30,7 @@ public class MessageTest {
     @Test
     public void getSender() {
         UserInfo sender = new UserInfo(new UserAccount(0, "test"), Status.ACTIVE);
-        sender = new MessageOwnerConcrete(sender.getAccount(), sender.getCurrentStatus());
+        sender = new UserInfo(sender.getAccount(), sender.getCurrentStatus());
         final Message<Object> message = new Message<>(0, sender, null);
 
         assertEquals("The sender is not the one set in the constructor",
