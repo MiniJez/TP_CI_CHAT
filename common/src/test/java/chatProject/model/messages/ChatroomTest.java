@@ -1,8 +1,5 @@
 package chatProject.model.messages;
 
-import chatProject.model.user.Status;
-import chatProject.model.user.UserAccount;
-import chatProject.model.user.UserInfo;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -31,6 +28,17 @@ public class ChatroomTest {
 
         assertEquals("The list of messages must be the one set in the constructor",
                 listMessage, chatroom.getCurrentMessages());
+    }
+
+    @Test
+    public void addMessage() {
+        List<Message> listMessage = new ArrayList<Message>();
+        Chatroom chatroom = new Chatroom(null, null, listMessage);
+        chatroom.addMessage(null, "TEST");
+        Message message = new Message(0, null, "TEST");
+
+        assertEquals("The new messages must be the one set in addMessage",
+                message.toString(), chatroom.getCurrentMessages().get(chatroom.getCurrentMessages().size() - 1).toString());
     }
 
 }

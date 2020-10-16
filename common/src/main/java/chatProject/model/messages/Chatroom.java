@@ -41,14 +41,6 @@ public class Chatroom<T> {
     }
 
     /**
-     * Gets the owner of the chatroom.
-     * @return the user who owns this chatroom
-     */
-    public UserInfo getOwner() {
-        return owner;
-    }
-
-    /**
      * Gets the list of messages sent in this chatroom.
      * @return the ordered list of messages stored in this chatroom.
      */
@@ -67,16 +59,6 @@ public class Chatroom<T> {
         final Message<T> message = new Message<>(0, userInfo, content);
         this.messages.add(message);
         return message;
-    }
-
-    /**
-     * Stores a new message directly in this chatroom.
-     * @param newMessage the new message to store
-     * @return the new message
-     */
-    public Message<T> addMessage(Message<T> newMessage) {
-        this.messages.add(newMessage);
-        return newMessage;
     }
 
     @Override
