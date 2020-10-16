@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class UserAccountTest {
 
     @Test
-    public void getUsername() {
+    public void testGetUsername() {
 
         final String username = "My user";
         final UserAccount user = new UserAccount(0, username);
@@ -25,6 +25,16 @@ public class UserAccountTest {
         final UserAccount user2 = new UserAccount(1, "MyUser2");
 
         assertTrue("2 accounts are equal if they have the same id",
+                user1.equals(user2));
+    }
+
+    @Test
+    public void testEquals2() {
+
+        final UserAccount user1 = new UserAccount(1, "MyUser1");
+        final UserAccount user2 = new UserAccount(2, "MyUser2");
+
+        assertFalse("2 accounts are not equal if they don't have the same id",
                 user1.equals(user2));
     }
 
