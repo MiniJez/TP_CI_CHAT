@@ -3,6 +3,7 @@ package chatProject.server;
 import chatProject.AddMessageForm;
 import chatProject.model.user.UserInfo;
 import com.google.gson.Gson;
+import spark.Filter;
 
 import static spark.Spark.*;
 
@@ -32,6 +33,9 @@ public class ChatServerService<T> {
     public void serve(int webServerPort) {
 
         port(webServerPort);
+        after((Filter) (request, response) -> {    response.header("Access-Control-Allow-Origin", "*");
+            response.header("Access-Control-Allow-Methods", "GET"); });
+
 
         get("/chatrooms", (request, response) ->
                 json.toJson(
